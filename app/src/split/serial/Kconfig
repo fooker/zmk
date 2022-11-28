@@ -1,0 +1,36 @@
+# Copyright (c) 2022 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if ZMK_SPLIT && ZMK_SPLIT_SERIAL
+
+menu "Serial Transport"
+
+config ZMK_SPLIT_SERIAL_QUEUE_SIZE
+	int "Max queue size for split data buffering"
+	default 5
+
+if ZMK_SPLIT_ROLE_CENTRAL
+
+config ZMK_USB
+	default y
+
+endif # ZMK_SPLIT_ROLE_CENTRAL
+
+if !ZMK_SPLIT_ROLE_CENTRAL
+
+config ZMK_SPLIT_SERIAL_WRITE_STACK_SIZE
+	int "Serial split write thread stack size"
+	default 512
+
+config ZMK_SPLIT_SERIAL_WRITE_RUN_PRIORITY
+	int "Serial split write thread priority"
+	default 5
+
+config ZMK_USB
+	default n
+
+endif # !ZMK_SPLIT_ROLE_CENTRAL
+
+endmenu
+
+endif # ZMK_SPLIT_SERIAL
